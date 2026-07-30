@@ -27,3 +27,23 @@ alwaysApply: true
 - This project is early-stage — ask clarifying questions before assuming architecture or features.
 - Explain reasoning before making changes.
 - Prioritize maintainability over cleverness.
+
+## Lessons Learned from AI-assisted workflow drill 
+
+- Always verify export/import style matches when a component is generated or 
+  edited by AI — check whether the file uses `export default` or a named 
+  `export`, and confirm the importing file matches. A mismatch causes a runtime 
+  crash that only appears when the component is 
+  actually rendered.
+
+- When AI generates a test file, verify its relative import paths against the 
+  actual project structure before running it — AI often assumes a `__tests__/` 
+  or nested folder convention (e.g., `../Component`) even when the test file is 
+  placed directly alongside the component (`./Component`).
+
+- A prompt that names a specific requirement (e.g., "with validation") is not 
+  automatically vague, even if it's short — the AI will reach for whatever 
+  conventions already exist in `.cursor/rules/`. Precise prompts should instead 
+  specify exact scope (fields, behavior) and an explicit verification step 
+  ("write it, then write tests and run them") to control what gets built and 
+  confirm it actually works.
