@@ -1,4 +1,4 @@
-# WORKFLOW.md — AI-Assisted Workflow Drill 
+# WorkFlow.md — AI-Assisted Workflow Drill 
 
 ## Setup
 Feature: Settings form for the FlyRank capstone. Which was built twice on separate branches
