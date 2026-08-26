@@ -1,83 +1,36 @@
-# FlyRank Frontend Capstone
-
-## About
-
-**Frontend capstone** for the FlyRank AI Engineering internship track. The project focuses on building a one page web and to learn and proceed productively.
-
-This repository focuses on building that experience with modern React patterns, disciplined Git workflows, and AI-assisted development in Cursor.
-
-**Capstone goals:**
-
-- Ship a production-quality Next.js frontend with semantic, accessible UI
-- Demonstrate clean component architecture and maintainable TypeScript
-- Practice Conventional Commits and thoughtful code review habits
-- Use Cursor and project rules to accelerate development without sacrificing quality
-
-## Tech Stack
-
-- **Framework:** React / Next.js
-- **Styling:** Tailwind CSS
-- **Language:** TypeScript
-- **AI Toolchain:** Cursor IDE integration
-
-## Prerequisites
-
-- Node.js (v18 or higher)
-- npm / yarn / pnpm
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-### Installation
-
-```bash
-git clone https://github.com/waleeja07-wk/Frontend_Capstone.git
-cd Frontend_Capstone
-npm install
-```
-
-### Environment Variables
-
-Create a `.env.local` file in the root directory based on `.env.example`:
-
-```bash
-cp .env.example .env.local
-```
-
-### Running the Development Server
+First, run the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Available Scripts
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Starts the development server |
-| `npm run build` | Builds the app for production |
-| `npm run lint` | Runs ESLint |
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Project Structure
+## Learn More
 
-```
-FlyRank-AI_Capstone/
-├── app/          # Routes, layouts, pages
-├── components/   # Reusable UI components
-├── lib/          # Utilities, types, hooks
-├── public/       # Static assets
-└── styles/       # Global styles
-```
+To learn more about Next.js, take a look at the following resources:
 
-## Status
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-This project is in active development. Features and architecture are being defined as the capstone progresses — this README will be updated accordingly.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Author
+## Deploy on Vercel
 
-Waleeja Khan
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License
-
-MIT — see [LICENSE](./LICENSE) for details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
