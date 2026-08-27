@@ -1,11 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { CheckInConfirmation } from "@/components/CheckInConfirmation";
 import { CheckInForm } from "@/components/CheckInForm";
-import { saveCheckIn } from "@/src/lib/storage";
+import { getTodayCheckIn, saveCheckIn } from "@/src/lib/storage";
+import type { CheckIn } from "@/src/types/checkin";
 
 export default function TodayPage() {
+  const [checkIn, setCheckIn] = useState<CheckIn | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setCheckIn(getTodayCheckIn());
+    setIsLoading(false);
+  }, []);
+
   function handleSubmit(input: Parameters<typeof saveCheckIn>[0]) {
-    saveCheckIn(input);
+    const saved = saveCheckIn(input);
+    setCheckIn(saved);
   }
 
   return (
@@ -17,7 +29,13 @@ export default function TodayPage() {
         Log your energy and output for today. One check-in per day.
       </p>
 
-      <CheckInForm onSubmit={handleSubmit} />
+      {isLoading ? (
+        <p className="mt-8 text-sm text-muted">Loading...</p>
+      ) : checkIn ? (
+        <CheckInConfirmation checkIn={checkIn} />
+      ) : (
+        <CheckInForm onSubmit={handleSubmit} />
+      )}
     </section>
   );
 }
