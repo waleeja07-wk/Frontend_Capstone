@@ -14,6 +14,14 @@ function formatDate(date: string): string {
   });
 }
 
+function formatRoutineMatch(matchedRoutine: boolean | undefined): string {
+  if (matchedRoutine === undefined) {
+    return "Not recorded";
+  }
+
+  return matchedRoutine ? "Yes" : "No";
+}
+
 function sortByDateDesc(checkIns: CheckIn[]): CheckIn[] {
   return [...checkIns].sort((a, b) => b.date.localeCompare(a.date));
 }
@@ -33,9 +41,8 @@ export function HistoryList() {
 
   if (checkIns.length === 0) {
     return (
-      <p className="mt-8 rounded-lg border border-border bg-surface-raised p-5 text-sm text-muted">
-        No check-ins yet. When you log your first day on Today, it will
-        appear here.
+      <p className="mt-8 rounded border border-border bg-surface-raised p-5 text-sm text-muted">
+        No check-ins yet. Entries from Today will appear here.
       </p>
     );
   }
@@ -45,7 +52,7 @@ export function HistoryList() {
       {checkIns.map((checkIn) => (
         <li
           key={checkIn.id}
-          className="rounded-lg border border-border bg-surface-raised p-5"
+          className="rounded border border-border bg-surface-raised p-5"
         >
           <p className="text-base font-medium text-foreground">
             {formatDate(checkIn.date)}
@@ -62,6 +69,12 @@ export function HistoryList() {
               <dt className="text-muted">Output</dt>
               <dd className="font-medium text-foreground">
                 {checkIn.outputLevel}/5
+              </dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted">Matched routine</dt>
+              <dd className="font-medium text-foreground">
+                {formatRoutineMatch(checkIn.matchedRoutine)}
               </dd>
             </div>
             {checkIn.note ? (
