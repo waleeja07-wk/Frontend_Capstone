@@ -46,6 +46,8 @@ export function getTodayCheckIn(): CheckIn | null {
 export type SaveCheckInInput = {
   energyLevel: CheckIn["energyLevel"];
   outputLevel: CheckIn["outputLevel"];
+  matchedRoutine: boolean;
+  mood?: CheckIn["mood"];
   note?: string;
 };
 
@@ -64,6 +66,8 @@ export function saveCheckIn(input: SaveCheckInInput): CheckIn {
     date: today,
     energyLevel: input.energyLevel,
     outputLevel: input.outputLevel,
+    matchedRoutine: input.matchedRoutine,
+    ...(input.mood ? { mood: input.mood } : {}),
     ...(trimmedNote ? { note: trimmedNote } : {}),
   };
 

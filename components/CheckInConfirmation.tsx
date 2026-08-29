@@ -31,6 +31,22 @@ export function CheckInConfirmation({ checkIn }: CheckInConfirmationProps) {
           <dt className="text-muted">Output</dt>
           <dd className="font-medium text-foreground">{checkIn.outputLevel}/5</dd>
         </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-muted">Matched routine</dt>
+          <dd className="font-medium text-foreground">
+            {checkIn.matchedRoutine === undefined
+              ? "Not recorded"
+              : checkIn.matchedRoutine
+                ? "Yes"
+                : "No"}
+          </dd>
+        </div>
+        {checkIn.mood ? (
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted">Mood</dt>
+            <dd className="font-medium text-foreground">{checkIn.mood}</dd>
+          </div>
+        ) : null}
         {checkIn.note ? (
           <div>
             <dt className="text-muted">Note</dt>

@@ -24,6 +24,7 @@ describe("check-in storage", () => {
     const saved = saveCheckIn({
       energyLevel: 4,
       outputLevel: 3,
+      matchedRoutine: true,
       note: "Focused morning",
     });
 
@@ -31,6 +32,7 @@ describe("check-in storage", () => {
       date: "2026-08-27",
       energyLevel: 4,
       outputLevel: 3,
+      matchedRoutine: true,
       note: "Focused morning",
     });
     expect(saved.id).toBeTruthy();
@@ -43,12 +45,15 @@ describe("check-in storage", () => {
     const first = saveCheckIn({
       energyLevel: 2,
       outputLevel: 2,
+      matchedRoutine: false,
       note: "Slow start",
     });
 
     const updated = saveCheckIn({
       energyLevel: 5,
       outputLevel: 4,
+      matchedRoutine: true,
+      mood: "Motivated",
     });
 
     expect(getAllCheckIns()).toHaveLength(1);
@@ -56,6 +61,8 @@ describe("check-in storage", () => {
     expect(updated.date).toBe("2026-08-27");
     expect(updated.energyLevel).toBe(5);
     expect(updated.outputLevel).toBe(4);
+    expect(updated.matchedRoutine).toBe(true);
+    expect(updated.mood).toBe("Motivated");
     expect(updated.note).toBeUndefined();
     expect(getTodayCheckIn()).toEqual(updated);
   });
