@@ -22,15 +22,15 @@ export function RoutineLockedView({ routine }: RoutineLockedViewProps) {
 
   return (
     <div className="mt-8 space-y-4">
-      <p className="rounded-lg border border-border bg-surface-raised p-4 text-sm text-muted">
-        Locked until {unlockDate} — {daysRemaining} {dayLabel} remaining
+      <p className="rounded border border-border bg-surface-raised p-4 text-sm text-muted">
+        Locked until {unlockDate}. {daysRemaining} {dayLabel} remaining.
       </p>
 
-      <ul className="space-y-3">
+      <ul className="space-y-2">
         {routine.items.map((item, index) => (
           <li
             key={`${routine.id}-${index}`}
-            className="rounded-lg border border-border bg-surface-raised px-4 py-3 text-sm text-foreground"
+            className="rounded border border-border bg-surface-raised px-4 py-3 text-sm text-foreground"
           >
             {item}
           </li>

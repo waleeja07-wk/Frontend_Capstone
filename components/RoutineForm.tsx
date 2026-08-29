@@ -60,14 +60,14 @@ export function RoutineForm({
             value={draftTask}
             onChange={(event) => setDraftTask(event.target.value)}
             onKeyDown={handleDraftKeyDown}
-            placeholder="Add an anchor task..."
-            className="flex-1 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm text-foreground placeholder:text-neutral-400 focus:border-primary focus:outline-none"
+            placeholder="Add an anchor task"
+            className="flex-1 rounded border border-border bg-surface-raised px-3 py-2 text-sm text-foreground placeholder:text-neutral-400 focus:border-primary focus:outline-none"
           />
           <button
             type="button"
             onClick={handleAddTask}
             disabled={!draftTask.trim()}
-            className="rounded-md border border-border px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:text-neutral-400"
+            className="rounded border border-border px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:text-neutral-400"
           >
             Add
           </button>
@@ -79,30 +79,30 @@ export function RoutineForm({
           {items.map((item, index) => (
             <li
               key={`${item}-${index}`}
-              className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm text-foreground"
+              className="flex items-center justify-between gap-3 rounded border border-border bg-surface-raised px-3 py-2 text-sm text-foreground"
             >
               <span>{item}</span>
               <button
                 type="button"
                 aria-label={`Remove ${item}`}
                 onClick={() => handleRemoveItem(index)}
-                className="rounded-md px-2 py-1 text-muted transition-colors hover:bg-neutral-100 hover:text-foreground"
+                className="text-sm text-muted transition-colors hover:text-foreground"
               >
-                x
+                Remove
               </button>
             </li>
           ))}
         </ul>
       ) : (
         <p className="text-sm text-muted">
-          Add at least one anchor task to save your routine.
+          Add at least one anchor task before saving.
         </p>
       )}
 
       <button
         type="submit"
         disabled={!hasValidItem}
-        className="block rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-muted disabled:cursor-not-allowed disabled:border-neutral-300 disabled:bg-neutral-200 disabled:text-neutral-500"
+        className="rounded border border-primary bg-surface-raised px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:border-neutral-300 disabled:text-neutral-400"
       >
         {submitLabel}
       </button>
