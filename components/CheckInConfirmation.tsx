@@ -16,8 +16,8 @@ function formatDate(date: string): string {
 
 export function CheckInConfirmation({ checkIn }: CheckInConfirmationProps) {
   return (
-    <div className="mt-8 rounded-lg border border-border bg-surface-raised p-5">
-      <p className="text-sm text-muted">Checked in for today</p>
+    <div className="mt-8 rounded border border-border bg-surface-raised p-5">
+      <p className="text-sm text-muted">Recorded for today</p>
       <p className="mt-1 text-base font-medium text-foreground">
         {formatDate(checkIn.date)}
       </p>
@@ -41,12 +41,6 @@ export function CheckInConfirmation({ checkIn }: CheckInConfirmationProps) {
                 : "No"}
           </dd>
         </div>
-        {checkIn.mood ? (
-          <div className="flex justify-between gap-4">
-            <dt className="text-muted">Mood</dt>
-            <dd className="font-medium text-foreground">{checkIn.mood}</dd>
-          </div>
-        ) : null}
         {checkIn.note ? (
           <div>
             <dt className="text-muted">Note</dt>

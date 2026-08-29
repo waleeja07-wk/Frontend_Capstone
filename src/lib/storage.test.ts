@@ -53,7 +53,6 @@ describe("check-in storage", () => {
       energyLevel: 5,
       outputLevel: 4,
       matchedRoutine: true,
-      mood: "Motivated",
     });
 
     expect(getAllCheckIns()).toHaveLength(1);
@@ -62,7 +61,6 @@ describe("check-in storage", () => {
     expect(updated.energyLevel).toBe(5);
     expect(updated.outputLevel).toBe(4);
     expect(updated.matchedRoutine).toBe(true);
-    expect(updated.mood).toBe("Motivated");
     expect(updated.note).toBeUndefined();
     expect(getTodayCheckIn()).toEqual(updated);
   });

@@ -16,9 +16,8 @@ describe("CheckInForm", () => {
     await user.click(within(energyGroup).getByRole("radio", { name: "4" }));
     await user.click(within(outputGroup).getByRole("radio", { name: "3" }));
     await user.click(screen.getByRole("button", { name: "Yes" }));
-    await user.click(screen.getByRole("button", { name: "Motivated" }));
     await user.type(
-      screen.getByPlaceholderText("Anything worth noting about today..."),
+      screen.getByPlaceholderText("Brief note about today"),
       "  Good deep-work block  ",
     );
     await user.click(screen.getByRole("button", { name: "Save check-in" }));
@@ -28,7 +27,6 @@ describe("CheckInForm", () => {
       energyLevel: 4,
       outputLevel: 3,
       matchedRoutine: true,
-      mood: "Motivated",
       note: "Good deep-work block",
     });
   });

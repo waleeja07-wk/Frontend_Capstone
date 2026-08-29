@@ -47,7 +47,6 @@ export type SaveCheckInInput = {
   energyLevel: CheckIn["energyLevel"];
   outputLevel: CheckIn["outputLevel"];
   matchedRoutine: boolean;
-  mood?: CheckIn["mood"];
   note?: string;
 };
 
@@ -67,7 +66,6 @@ export function saveCheckIn(input: SaveCheckInInput): CheckIn {
     energyLevel: input.energyLevel,
     outputLevel: input.outputLevel,
     matchedRoutine: input.matchedRoutine,
-    ...(input.mood ? { mood: input.mood } : {}),
     ...(trimmedNote ? { note: trimmedNote } : {}),
   };
 
@@ -167,4 +165,13 @@ export function saveRoutine(items: string[]): Routine {
 
   localStorage.setItem(ROUTINE_STORAGE_KEY, JSON.stringify(routine));
   return routine;
+}
+
+export function clearAllData(): void {
+  if (typeof window === "undefined") {
+    throw new Error("clearAllData can only be called in the browser.");
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(ROUTINE_STORAGE_KEY);
 }
