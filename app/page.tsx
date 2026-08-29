@@ -26,7 +26,7 @@ export default function TodayPage() {
         Today
       </h1>
       <p className="mt-3 text-muted">
-        Log your energy and output for today. One check-in per day.
+        Record energy, output, and whether today followed your routine.
       </p>
 
       {isLoading ? (

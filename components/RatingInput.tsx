@@ -13,11 +13,7 @@ export function RatingInput({ label, name, value, onChange }: RatingInputProps) 
   return (
     <fieldset>
       <legend className="text-sm font-medium text-foreground">{label}</legend>
-      <div
-        className="mt-2 flex gap-2"
-        role="radiogroup"
-        aria-label={label}
-      >
+      <div className="mt-2 flex gap-2" role="radiogroup" aria-label={label}>
         {LEVELS.map((level) => {
           const isSelected = value === level;
 
@@ -29,9 +25,9 @@ export function RatingInput({ label, name, value, onChange }: RatingInputProps) 
               role="radio"
               aria-checked={isSelected}
               onClick={() => onChange(level)}
-              className={`flex h-10 w-10 items-center justify-center rounded-md border text-sm transition-colors ${
+              className={`flex h-10 w-10 items-center justify-center rounded border text-sm transition-colors ${
                 isSelected
-                  ? "border-primary bg-neutral-100 text-primary"
+                  ? "border-primary bg-neutral-100 text-foreground"
                   : "border-border bg-surface-raised text-neutral-600 hover:border-neutral-300 hover:bg-neutral-50"
               }`}
             >

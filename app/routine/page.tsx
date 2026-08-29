@@ -7,8 +7,7 @@ export default function RoutinePage() {
         Routine
       </h1>
       <p className="mt-3 text-muted">
-        Your anchor tasks, locked in place for a set period so you can focus
-        on doing them—not redesigning them every day.
+        Anchor tasks for the week. Once saved, the list locks for seven days.
       </p>
 
       <RoutinePanel />
