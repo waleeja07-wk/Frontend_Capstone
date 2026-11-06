@@ -1,7 +1,8 @@
 import type { CheckIn } from "@/src/types/checkin";
 
-const CLAUDE_MODEL = process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-5";
-const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
+const GEMINI_MODEL = process.env.GEMINI_MODEL ?? "gemini-3.6-flash";
+const GEMINI_API_BASE =
+  "https://generativelanguage.googleapis.com/v1beta/models";
 const MIN_CHECK_INS = 3;
 
 type InsightConfidence = "low" | "medium" | "high";
@@ -161,51 +162,46 @@ Confidence:
 No markdown. No preamble. JSON only.`;
 }
 
-async function callClaude(
+async function callGemini(
   checkIns: CheckInPayload[],
   apiKey: string,
 ): Promise<{ ok: true; data: InsightResponse } | { ok: false; message: string }> {
   let response: Response;
 
   try {
-    response = await fetch(ANTHROPIC_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: CLAUDE_MODEL,
-        max_tokens: 512,
-        temperature: 0.2,
-        messages: [
-          {
-            role: "user",
-            content: buildPrompt(checkIns),
+    response = await fetch(
+      `${GEMINI_API_BASE}/${GEMINI_MODEL}:generateContent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey,
+        },
+        body: JSON.stringify({
+          contents: [
+            { role: "user", parts: [{ text: buildPrompt(checkIns) }] },
+          ],
+          generationConfig: {
+            temperature: 0.2,
+            maxOutputTokens: 1024,
+            responseMimeType: "application/json",
           },
-        ],
-      }),
-    });
-  } catch {
-    return {
-      ok: false,
-      message: "Could not reach the insights service.",
-    };
+        }),
+      },
+    );
+  } catch (error) {
+    console.error("Gemini fetch failed:", error);
+    return { ok: false, message: "Could not reach the insights service." };
   }
 
   if (response.status === 429) {
-    return {
-      ok: false,
-      message: "Insights are temporarily rate-limited.",
-    };
+    return { ok: false, message: "Insights are temporarily rate-limited." };
   }
 
   if (!response.ok) {
-    return {
-      ok: false,
-      message: "The insights service returned an error.",
-    };
+    const errorBody = await response.text();
+    console.error("Gemini API error:", response.status, errorBody);
+    return { ok: false, message: "The insights service returned an error." };
   }
 
   let payload: unknown;
@@ -219,18 +215,22 @@ async function callClaude(
     };
   }
 
-  const textBlock = (
-    payload as { content?: Array<{ type?: string; text?: string }> }
-  ).content?.find((block) => block.type === "text");
+  const parts = (
+    payload as {
+      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+    }
+  ).candidates?.[0]?.content?.parts;
 
-  if (!textBlock?.text) {
+  const text = parts?.map((part) => part.text ?? "").join("").trim();
+
+  if (!text) {
     return {
       ok: false,
       message: "The insights service returned an empty response.",
     };
   }
 
-  const parsed = parseInsightResponse(textBlock.text);
+  const parsed = parseInsightResponse(text);
 
   if (!parsed) {
     return {
@@ -273,7 +273,7 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return jsonError(
@@ -283,7 +283,7 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const result = await callClaude(checkIns, apiKey);
+  const result = await callGemini(checkIns, apiKey);
 
   if (!result.ok) {
     return jsonError("UPSTREAM_ERROR", result.message, 502);
