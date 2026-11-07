@@ -11,6 +11,23 @@ export default defineConfig({
     clearMocks: true,
     pool: "threads",
     maxWorkers: 1,
+    coverage: {
+      provider: "v8",
+      include: [
+        "components/**/*.{ts,tsx}",
+        "src/**/*.{ts,tsx}",
+        "lib/**/*.{ts,tsx}",
+        "app/api/**/*.ts",
+      ],
+      exclude: [
+        "**/*.test.{ts,tsx}",
+        "**/*.d.ts",
+        "src/types/**",
+        // Type-only file: no executable code to cover.
+        "lib/types.ts",
+      ],
+      reporter: ["text", "html"],
+    },
   },
   resolve: {
     alias: {

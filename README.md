@@ -62,7 +62,7 @@ npm run test        # run once
 npm run test:watch  # watch mode
 ```
 
-6/6 tests passing across `src/lib/storage.test.ts` and `components/CheckInForm.test.tsx`.
+6/6 tests passing across `src/lib/storage.test.ts` and `components/CheckInForm.test.tsx` and `test.ts` files.
 
 **Note on test output:** if you see a `SyntaxError` printed in the terminal while tests run, that's expected, it's `console.error` output from `storage.test.ts`'s `"returns an empty list when stored check-ins are invalid JSON"` test. It intentionally writes malformed JSON into `localStorage` and asserts that `getAllCheckIns()` catches the parse failure and falls back to `[]` instead of crashing the app. The test still passes; the logged error is evidence the error handling works, not a failure.
 
